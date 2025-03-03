@@ -49,4 +49,15 @@ const createEvent = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-export { createEvent };
+const getAllEvents = asyncErrorHandler(async (req, res, next) => {
+  const events = await Event.find().select('-attendees -__v');
+
+  res.status(200).json({
+    message: 'Here are all the events',
+    data: {
+      events,
+    },
+  });
+});
+
+export { createEvent, getAllEvents };
