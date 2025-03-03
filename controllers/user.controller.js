@@ -51,6 +51,7 @@ const userSignup = asyncErrorHandler(async (req, res, next) => {
     message: 'User created successfully',
     data: {
       userData: {
+        id: user._id,
         name: user.name,
         email: user.email,
       },

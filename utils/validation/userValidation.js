@@ -9,7 +9,7 @@ const userSignupSchema = Joi.object({
     })
     .required(),
   password: Joi.string().min(8).required(),
-  role: Joi.string().valid('organizer', 'user', 'admin').required(),
+  role: Joi.string().valid('organizer', 'user').required(),
   googleId: Joi.string(),
   profilePic: Joi.string(),
 });

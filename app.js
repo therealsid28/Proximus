@@ -19,6 +19,7 @@ app.use(express.json());
 
 // Routes require
 import userRoutes from './routes/user.routes.js';
+import eventRoutes from './routes/event.routes.js';
 
 app.get('/', (req, res, next) => {
   res.status(200).json({
@@ -27,6 +28,7 @@ app.get('/', (req, res, next) => {
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api', eventRoutes);
 
 app.use(globalErrorMiddleware);
 

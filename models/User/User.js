@@ -11,7 +11,6 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
     select: false,
   },
   googleId: {
@@ -22,7 +21,7 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['organizer', 'user', 'admin'],
+    enum: ['organizer', 'user'],
     defualt: 'user',
   },
   createdAt: {
