@@ -42,10 +42,59 @@ const createEvent = asyncErrorHandler(async (req, res, next) => {
   });
 
   res.status(200).json({
-    message: 'EVent created succesfully',
+    message: 'Event created succesfully',
     data: {
       event,
     },
+  });
+});
+
+const updateEvent = asyncErrorHandler(async (req, res, next) => {
+  const {
+    title,
+    description,
+    category,
+    date,
+    time,
+    venue,
+    location,
+    organizer,
+    ticketsAvailable,
+    ticketPrice,
+    image,
+    eventId,
+  } = req.body;
+
+  if (!eventId) {
+    return next(new AppError('Provide the event Id', 404));
+  }
+
+  const data = {
+    title,
+    description,
+    category,
+    date,
+    time,
+    venue,
+    location,
+    organizer,
+    ticketsAvailable,
+    ticketPrice,
+  };
+
+  const updatedDoc = await Event.findByIdAndUpdate(
+    eventId,
+    { $set: { ...data, image } },
+    { new: true, runValidators: true }
+  );
+
+  const { error } = createEventSchema.validate(data);
+  if (error) {
+    return next(new AppError(error.details[0].message, 400));
+  }
+
+  res.status(201).json({
+    message: 'Event updated succesfully',
   });
 });
 
@@ -60,4 +109,4 @@ const getAllEvents = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-export { createEvent, getAllEvents };
+export { createEvent, getAllEvents, updateEvent };
