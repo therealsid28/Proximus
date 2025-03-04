@@ -95,6 +95,9 @@ const updateEvent = asyncErrorHandler(async (req, res, next) => {
 
   res.status(201).json({
     message: 'Event updated succesfully',
+    data: {
+      event: updatedDoc,
+    },
   });
 });
 
